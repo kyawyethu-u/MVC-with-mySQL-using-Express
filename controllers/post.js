@@ -30,7 +30,7 @@ exports.renderCreatePage = (req,res)=>{
 
 exports.getPosts = (req,res)=>{
    //getAllPost is directly useable because of static keyword
-   Post.findAll()
+   Post.findAll({order: [["createdAt","desc"]]})
    .then(posts =>{
     res.render("home",{title: "Home Page",posts})
    })
@@ -62,4 +62,45 @@ exports.getPost = (req,res)=>{
     // } )
     // .catch(err=> console.log(err))
     
+}
+
+exports.deletePost = (req,res)=>{
+    const postId = (req.params.postId);
+
+    Post.findByPk(postId)
+    .then((post)=>{
+        if(!post){
+        res.redirect("/")} 
+        return post.destroy()})
+        .then(result => {
+            console.log("Post deleted!!!")
+            res.redirect("/")
+        })
+    .catch(err=> console.log(err))
+}
+
+exports.getOldPost =(req,res)=>{
+    const postId = (req.params.postId);
+    Post.findByPk(postId)
+    .then((post) =>
+
+        {res.render("editpost", {title: `${post.title}`,post})})
+   .catch(err=> console.log(err))
+} 
+
+exports.updatePost = (req,res) =>{
+    const {title,description,photo,post_id} = req.body;
+    Post.findByPk(post_id)
+    .then(post => {
+        post.title =title,
+        post.description =description,
+        post.img_url =photo
+        return post.save()
+    })
+    .then(result => 
+    {console.log(`Post id => ${post_id} is updated`)
+    res.redirect("/")
+     })
+    .catch(err=> console.log(err))
+
 }

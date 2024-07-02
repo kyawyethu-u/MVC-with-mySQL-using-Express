@@ -8,6 +8,7 @@ const postController = require("../controllers/post");
 
 
 router.get("/",postController.getPosts);
+
 router.get("/post/:postId",postController.getPost);
 
 
