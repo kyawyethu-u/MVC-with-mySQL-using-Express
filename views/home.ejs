@@ -5,7 +5,7 @@
     <hr/>
     
     <h1 class="title">Posts</h1>
-    <% if(postsArr.length===0) {%>
+    <% if(posts.length===0) {%>
         <div>
             <h4>Nothing to see ?</h4>
             <p>Create a new post now !!! </p>
@@ -13,7 +13,7 @@
         </div>
         <% } %>
 
-    <% for(let post of postsArr) {%>    
+    <% for(let post of posts) {%>    
     <div class="post-box">
         <p class="post-title"><%=post.title%></p>
         <p class="post-des">

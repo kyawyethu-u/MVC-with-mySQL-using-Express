@@ -1,8 +1,11 @@
 const express = require("express");
-const path = require("path")
-const bodyparser = require("body-parser");
+const path = require("path")    //default module import
 
-const app = express();
+const bodyparser = require("body-parser");//third-party package import
+
+const sequelize = require("./utils/database")//local file import
+
+const app = express(); 
 
  app.set("view engine","ejs");
  app.set("views","views")
@@ -30,8 +33,13 @@ app.use("/admin",(req,res,next)=>{
 app.use("/admin",adminRoutes);
 app.use(postRoutes);  
 
+//sync is promiswe like pool.promise to order database
+sequelize          //checked database vs model
+.sync()            //sync always detect models/schema changes and changed accordingly
+.then(
+    result => {console.log(result);
+    app.listen(8080);}
+)
+.catch((err)=> console.log(err))    
 
 
-
-
-app.listen(8080);

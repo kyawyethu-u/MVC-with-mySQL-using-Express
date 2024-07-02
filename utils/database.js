@@ -1,20 +1,8 @@
-const mysql = require("mysql2")
+const Sequelize = require("sequelize")
 
-const pool = mysql.createPool({
-    host : "localhost",
-    user : "root",
-    database: "blog",
-    password: "abcd"
-})
+const sequelize = new Sequelize("blog","root","abcd",{
+    host: "localhost",
+    dialect: "mysql",}
+)
 
-
-module.exports = pool.promise();//promise sent it to models vs controller
-
-
-
-
-
-
-//utils = common used files
-// command = npm i mysql2
-//now is database set up file
+module.exports = sequelize; //database setup
