@@ -1,13 +1,14 @@
 // const posts =[]; //supposed model
-const Post = require("../models/posts")//model import
+const Post = require("../models/post")//model import
 
 
 exports.createPost =(req,res)=>{
     const {title,description,photo} = req.body;
-    Post.create({
+    req.user.createPost({
         title,
         description,
         img_url : photo,
+
     }).then((result) =>
          {console.log(result)
             console.log("New post created")
